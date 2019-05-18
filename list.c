@@ -1,4 +1,3 @@
-//20190518
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct node node;
@@ -170,6 +169,29 @@ node * del(node * L, int pos)
     q->next = p ->next;
     return L;
 }
+
+node * revise(node * L)
+{
+    int l = 0;
+    node * p, *q, *tmp;
+    tmp = (node *)malloc(sizeof(node));
+    if(L == NULL)
+    {
+        printf("ERROR LIST!");
+        return NULL;
+    }
+    l = length(L);
+    q = find(L, l);
+    tmp -> next = q;
+    while(--l)
+    {
+        q = find(L, l+1);
+        p = find(L, l);
+        q -> next = p;
+    }
+    p ->next = NULL;
+    return tmp;
+}
 int main()
 {
     int i = 0;
@@ -177,7 +199,7 @@ int main()
     i = length(L);
     printf("i=%d\n", i);
     print(L);
-    print(del(L, 2));
+    print(revise(L));
     
     return 0;
 }
